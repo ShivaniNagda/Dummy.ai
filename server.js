@@ -1,15 +1,18 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 let otpStore = {};
 let tokenStore = {};
 
 /* Trigger OTP */
 app.post("/trigger-otp", (req, res) => {
+  console.log(req.body);
   const { phone, dob } = req.body;
 
   if (!phone || !dob) {
@@ -45,11 +48,11 @@ app.post("/verify-otp", (req, res) => {
 
 /* Get Loans */
 app.get("/loans", (req, res) => {
-  const token = req.headers.authorization?.split(" ")[1];
+  // const token = req.headers.authorization?.split(" ")[1];
 
-  if (!tokenStore[token]) {
-    return res.status(401).json({ success: false });
-  }
+  // if (!tokenStore[token]) {
+  //   return res.status(401).json({ success: false });
+  // }
 
   res.json({
     loans: [
