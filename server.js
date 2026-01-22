@@ -32,8 +32,8 @@ app.post("/trigger-otp", (req, res) => {
 /* Verify OTP */
 app.post("/verify-otp", (req, res) => {
   const { phone, otp } = req.body;
-
-  if (otpStore[phone] === otp) {
+  console.log("/verify-otp",req.body);
+  if (otpStore[phone] == otp) {
     const token = "demo-jwt-token";
     tokenStore[token] = phone;
 
